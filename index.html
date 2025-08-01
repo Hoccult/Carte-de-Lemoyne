@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Carte Interactive avec Filtres</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <style>
+    html, body, #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+#menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  left: auto;    /* enlever left */
+  z-index: 1000;
+}
+
+  </style>
+</head>
+<body>
+
+<div id="menu">
+  <strong>Filtres :</strong><br>
+<label><input type="checkbox" checked onchange="toggleCategory('batiments')">Batiments</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('lieux')">Lieux</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('camps')">Camps</label>
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Dimensions de ton image (remplace si besoin)
+  const imageWidth = 1869;
+  const imageHeight = 1701;
+
+  const map = L.map('map', {
+    crs: L.CRS.Simple,
+    minZoom: -5,
+  });
+
+  const bounds = [[0, 0], [imageHeight, imageWidth]];
+  const image = L.imageOverlay('map.png', bounds).addTo(map);
+  map.fitBounds(bounds);
+
+  // Regroupe les points par catégorie
+ const layers = {
+  batiments: L.layerGroup().addTo(map),
+  lieux: L.layerGroup().addTo(map),
+  camps: L.layerGroup().addTo(map)
+};
+
+  // Liste des points d’intérêt
+const points = [
+  { name: "Palais de Justice", coords: [692, 1549], description: "QG Marshal", category: "batiments" },
+  { name: "Poste de Sheriff 1", coords: [689, 1499], description: "Sheriff", category: "batiments" },
+  { name: "Poste de Sheriff 2", coords: [695, 745], description: "Sheriff", category: "batiments" },
+  { name: "Tailleur Illegal", coords: [1128, 943], description: "A surveiller", category: "lieux" },
+  { name: "QG", coords: [713, 295], description: "Suspicions d'etre occuper par les italiens", category: "camps" }
+];
+
+  // Ajoute les marqueurs à leurs couches respectives
+  points.forEach(p => {
+    const marker = L.marker(p.coords).bindPopup(`<b>${p.name}</b><br>${p.description}`);
+    marker.addTo(layers[p.category]);
+  });
+
+  // Fonction appelée lors d’un clic sur une case
+  function toggleCategory(cat) {
+    if (map.hasLayer(layers[cat])) {
+      map.removeLayer(layers[cat]);
+    } else {
+      map.addLayer(layers[cat]);
+    }
+  }
+  map.on('click', function(e) {
+  const y = Math.floor(e.latlng.lat);
+  const x = Math.floor(e.latlng.lng);
+  alert(`Coordonnées pixels : Y = ${y}, X = ${x}`);
+});
+</script>
+
+</body>
+</html>
