@@ -25,16 +25,23 @@
 
 <div id="menu">
   <strong>Filtres :</strong><br>
-<label><input type="checkbox" checked onchange="toggleCategory('batiments')">Batiments</label><br>
-<label><input type="checkbox" checked onchange="toggleCategory('lieux')">Lieux</label><br>
-<label><input type="checkbox" checked onchange="toggleCategory('camps')">Camps</label>
+<label><input type="checkbox" checked onchange="toggleCategory('Maisons')">Maisons</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Camps')">Camps</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Passeurs')">Passeurs</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Tailleurs')">Tailleurs</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Lieux de RDV Marshal')">Lieux de RDV Marshal</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Diamant taillee')">Diamant taillée</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Points chaud')">Points chauds</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Possible QG')">Possible QG</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Puits')">Puits</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Autres')">Autres</label>
 </div>
 
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-  // Dimensions de ton image (remplace si besoin)
+  // Dimensions de la carte lemoyne
   const imageWidth = 1869;
   const imageHeight = 1701;
 
@@ -49,18 +56,26 @@
 
   // Regroupe les points par catégorie
  const layers = {
-  batiments: L.layerGroup().addTo(map),
-  lieux: L.layerGroup().addTo(map),
-  camps: L.layerGroup().addTo(map)
+  Maisons: L.layerGroup().addTo(map),
+  Camps: L.layerGroup().addTo(map),
+  Passeurs: L.layerGroup().addTo(map),
+  Tailleurs: L.layerGroup().addTo(map),
+  Lieux de RDV Marshal: L.layerGroup().addTo(map),
+  Diamant taillee: L.layerGroup().addTo(map),
+  Points chaud: L.layerGroup().addTo(map),
+  Possible QG: L.layerGroup().addTo(map),
+  Puits: L.layerGroup().addTo(map),
+  Camps: L.layerGroup().addTo(map),
+  Autres: L.layerGroup().addTo(map),
 };
 
   // Liste des points d’intérêt
 const points = [
-  { name: "Palais de Justice", coords: [692, 1549], description: "QG Marshal", category: "batiments" },
-  { name: "Poste de Sheriff 1", coords: [689, 1499], description: "Sheriff", category: "batiments" },
-  { name: "Poste de Sheriff 2", coords: [695, 745], description: "Sheriff", category: "batiments" },
-  { name: "Tailleur Illegal", coords: [1128, 943], description: "A surveiller", category: "lieux" },
-  { name: "QG", coords: [713, 295], description: "Suspicions d'etre occuper par les italiens", category: "camps" }
+  { name: "Palais de Justice", coords: [692, 1549], description: "QG Marshal", category: "Maisons" },
+  { name: "Poste de Sheriff 1", coords: [689, 1499], description: "Sheriff", category: "Maisons" },
+  { name: "Poste de Sheriff 2", coords: [695, 745], description: "Sheriff", category: "Maisons" },
+  { name: "Tailleur Illegal", coords: [1128, 943], description: "A surveiller", category: "Tailleurs" },
+  { name: "QG", coords: [713, 295], description: "Suspicions d'etre occuper par les italiens", category: "Possible QG" }
 ];
 
   // Ajoute les marqueurs à leurs couches respectives
