@@ -6,10 +6,10 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
   <style>
     html, body, #map {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
+  height: 1000px;  /* Hauteur fixe */
+  width: 100%;
+  background-color: #6b6b6b; /* juste pour tester la visibilité */
+}
 
 #menu {
   position: absolute;
@@ -30,11 +30,11 @@
 <label><input type="checkbox" checked onchange="toggleCategory('Passeurs')">Passeurs</label><br>
 <label><input type="checkbox" checked onchange="toggleCategory('Tailleurs')">Tailleurs</label><br>
 <label><input type="checkbox" checked onchange="toggleCategory('Lieux de RDV Marshal')">Lieux de RDV Marshal</label><br>
-<label><input type="checkbox" checked onchange="toggleCategory('Diamant taillee')">Diamant taillée</label><br>
+<label><input type="checkbox" checked onchange="toggleCategory('Diamant taillee')">Diamant taillee</label><br>
 <label><input type="checkbox" checked onchange="toggleCategory('Points chaud')">Points chauds</label><br>
 <label><input type="checkbox" checked onchange="toggleCategory('Possible QG')">Possible QG</label><br>
 <label><input type="checkbox" checked onchange="toggleCategory('Puits')">Puits</label><br>
-<label><input type="checkbox" checked onchange="toggleCategory('Autres')">Autres</label>
+<label><input type="checkbox" checked onchange="toggleCategory('Autres')">Autres</label><br>
 </div>
 
 <div id="map"></div>
@@ -55,17 +55,16 @@
   map.fitBounds(bounds);
 
   // Regroupe les points par catégorie
- const layers = {
+const layers = {
   Maisons: L.layerGroup().addTo(map),
   Camps: L.layerGroup().addTo(map),
   Passeurs: L.layerGroup().addTo(map),
   Tailleurs: L.layerGroup().addTo(map),
-  Lieux de RDV Marshal: L.layerGroup().addTo(map),
-  Diamant taillee: L.layerGroup().addTo(map),
-  Points chaud: L.layerGroup().addTo(map),
-  Possible QG: L.layerGroup().addTo(map),
+  'Lieux de RDV Marshal': L.layerGroup().addTo(map),
+  'Diamant taillee': L.layerGroup().addTo(map),
+  'Points chaud': L.layerGroup().addTo(map),
+  'Possible QG': L.layerGroup().addTo(map),
   Puits: L.layerGroup().addTo(map),
-  Camps: L.layerGroup().addTo(map),
   Autres: L.layerGroup().addTo(map),
 };
 
